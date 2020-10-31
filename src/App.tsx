@@ -1,11 +1,14 @@
 import React from 'react'
+import Navbar from './Components/Navbar'
+import SearchBox from './Components/SearchBox'
 
 function App() {
   return (
-    <div className="App">
-      DECA TOYS
+    <div>
+      <Navbar/>
+      <SearchBox/>
     </div>
   );
 }
 
-export default App;
+export default App
