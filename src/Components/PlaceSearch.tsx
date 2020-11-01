@@ -1,18 +1,14 @@
 import React,  { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import lodash from 'lodash'
+import { getPlacesFromApis } from '../utils/functions'
+import { OptionType } from '../utils/types'
 
-interface CountryType {
-  name: string
-}
-
-export default function Asynchronous() {
+const PlaceSeach = () => {
   const [open, setOpen] = useState(false)
-  const [options, setOptions] = useState<CountryType[]>([])
-  const [value, setValue] = useState<string>('')
+  const [options, setOptions] = useState<OptionType[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   
   const debounce = lodash.debounce((nextValue) => getData(nextValue as string), 1000)
@@ -22,24 +18,23 @@ export default function Asynchronous() {
     if (!open) {
       setOptions([])
     }
-  }, [open]);
+  }, [open])
 
   const getData = async (query: string) => {
     try {
       setLoading(true)
-      const response = await axios.get('https://country.register.gov.uk/records.json?page-size=5000')
-      const countries = await response.data
-      console.log(countries)
-      setOptions(Object.keys(countries).map((key) => countries[key].item[0]) as CountryType[])
-      setLoading(false)
+      const apiResults = await getPlacesFromApis(query)
+      setOptions(apiResults)
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleSearchChange = async (e: any) => {
     const searchTerm = e.target.value as string
-    setValue(searchTerm)
+    if (searchTerm.length < 3) return
     debouncedSave(searchTerm)
   };
 
@@ -56,6 +51,7 @@ export default function Asynchronous() {
       }}
       getOptionSelected={(option, value) => option.name === value.name}
       getOptionLabel={(option) => option.name}
+      onChange={(e) => console.log('select', e)}
       options={options}
       renderInput={(params) => (
         <TextField
@@ -77,3 +73,5 @@ export default function Asynchronous() {
     />
   )
 }
+
+export default PlaceSeach

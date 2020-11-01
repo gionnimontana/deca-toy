@@ -1,4 +1,3 @@
-export interface PlaceResult {
-  label: string
-  value: string
+export interface OptionType {
+  name: string
 }
