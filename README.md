@@ -1,9 +1,11 @@
 # :robot: DECA TOY PROJECT :robot:
 
-This repository contains a React application written in Typescript :warning:
+This repository contains a React application written in Typescript 
+
+:warning: Before to run it, add a valid Google Cloud Platform API key with CORS enabled :warning: 
 
 
-### How to serve
+### How to run project
 
 it could be served in 2 ways: 
 
@@ -20,7 +22,3 @@ With Docker (on Windows make sure that docker have permission to share the folde
 
 - `docker-compose stop` 
 
-
-### How to test:
-
-- `npm run test` 
