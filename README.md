@@ -2,7 +2,7 @@
 
 This repository contains a React application written in Typescript 
 
-:warning: Before to run it, add a valid Google Cloud Platform API key with CORS enabled :warning: 
+:warning: Before to run, add a valid Google Cloud Platform API key with CORS enabled in ".env" file  :warning: 
 
 
 ### How to run project
